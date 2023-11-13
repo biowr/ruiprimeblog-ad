@@ -50,26 +50,55 @@
   </article>
 
   <script>
-    // 初始化访问次数为0
-    var visitCount = 0;
+	  
+   document.addEventListener("DOMContentLoaded", function() {
+    // 检查cookie中的访问次数
+    var visits = getCookie("visits") || 0;
+    visits++;
 
-    // 检查访问次数并更新页面内容
-    function checkVisitCount() {
-      visitCount++;
-      
-      if (visitCount >= 3) {
-        // 替换图片
-        var imageCenter = document.getElementById('image-center');
-        imageCenter.innerHTML = '<iframe src="https://thoughts.teambition.com/sharespace/6120d803b9352a0041a25036" height="1100px" frameborder="0" scrolling="no"></iframe>';
-        
-        // 替换链接
-        var linkCenter = document.getElementById('link-center');
-        linkCenter.innerHTML = '<strong><a href="/endnote" target="_blank">已支付，点击下载</a></strong>';
-      }
+    // 设置cookie中的访问次数
+    setCookie("visits", visits, 7);
+
+    // 当访问次数超过3次时，更改页面内容
+    if (visits > 3) {
+        // 更改图片链接
+        var imageElement = document.querySelector("center img");
+        if (imageElement) {
+            imageElement.outerHTML = '<iframe src="https://thoughts.teambition.com/sharespace/6120d803b9352a0041a25036" height="1100px" frameborder="0" scrolling="no"></iframe>';
+        }
+
+        // 更改支付链接
+        var payLinkElement = document.querySelector("center a[href='/pwd']");
+        if (payLinkElement) {
+            payLinkElement.setAttribute('href', '/endnote');
+            payLinkElement.innerHTML = '已支付，点击下载';
+        }
     }
+});
 
-    // 在页面加载完成时检查访问次数
-    window.addEventListener('load', checkVisitCount);
+// 函数来获取cookie
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+// 函数来设置cookie
+function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+
   </script>
 
 
