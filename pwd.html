@@ -33,19 +33,52 @@
 
     <main>
 
-      <article>
-        <h1 id="article-title">Endnote 最新版本下载地址</h1>
-        <br>
-<!--文章主体-->
+      <!DOCTYPE html>
+<html>
+<head>
+  <title>页面访问计数器</title>
+</head>
+<body>
+  <article>
+    <h1 id="article-title">Endnote 最新版本下载地址</h1>
+    <br>
 
-<center> <strong><a href='/pwd'   target="_blank"  > 微信扫码支付后将跳转下载页面(未跳转请刷新几次）</a></strong> </center>
-        <br>
-        </br>     
-<center><img width=65% src="https://jihulab.com/biowr/PicBed/-/raw/main/pictures/2022/10/wxgzh-search-2022.png"></center>
+    <!-- 文章主体 -->
+    <center id="image-center">
+      <img width="65%" src="https://jihulab.com/biowr/PicBed/-/raw/main/pictures/2022/10/wxgzh-search-2022.png">
+    </center>
 
+    <br>
 
+    <center id="link-center">
+      <strong><a href='/pwd' target="_blank">微信扫码支付后将跳转下载页面(未跳转请刷新几次）</a></strong>
+    </center>
+  </article>
+
+  <script>
+    // 初始化访问次数为0
+    var visitCount = 0;
+
+    // 检查访问次数并更新页面内容
+    function checkVisitCount() {
+      visitCount++;
+      
+      if (visitCount >= 3) {
+        // 替换图片
+        var imageCenter = document.getElementById('image-center');
+        imageCenter.innerHTML = '<iframe src="https://thoughts.teambition.com/sharespace/6120d803b9352a0041a25036" height="1100px" frameborder="0" scrolling="no"></iframe>';
         
-      </article>
+        // 替换链接
+        var linkCenter = document.getElementById('link-center');
+        linkCenter.innerHTML = '<strong><a href="/endnote" target="_blank">已支付，点击下载</a></strong>';
+      }
+    }
+
+    // 在页面加载完成时检查访问次数
+    window.addEventListener('load', checkVisitCount);
+  </script>
+
+
 
     </main>
    <footer class="hide-on-print">© 2016 - <time><script>document.write(new Date().getFullYear())</script></time> <a href="/" rel="author">Rui Wang</a>.
